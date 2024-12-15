@@ -2,6 +2,7 @@ package y2024
 
 import (
 	ds "aoc-go/common/datastructures"
+	"aoc-go/common/parsing"
 	"fmt"
 	"sort"
 	"strconv"
@@ -14,22 +15,16 @@ func Day01a(input string) (int, error) {
 
 	for _, row := range strings.Split(input, "\n") {
 
-		fields := strings.Fields(row)
-		if len(fields) != 2 {
+		ints, err := parsing.RowToInts(row)
+		if err != nil {
+			return 0, err
+		}
+		if len(ints) != 2 {
 			continue
 		}
-		x, err := strconv.Atoi(fields[0])
-		if err != nil {
-			return 0, err
-		}
-		y, err := strconv.Atoi(fields[1])
-		if err != nil {
-			fmt.Println("Error converting to int:", fields[1])
-			return 0, err
-		}
 
-		left = append(left, x)
-		right = append(right, y)
+		left = append(left, ints[0])
+		right = append(right, ints[1])
 	}
 
 	sort.Ints(left)

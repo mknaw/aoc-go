@@ -104,14 +104,15 @@ func main() {
 			return
 		}
 		testsPass := true
-		for _, test := range tests {
+		for i, test := range tests {
 			res, err := solutionFunc(test.Input)
 			if err != nil {
 				fmt.Println(err)
 				testsPass = false
+				break;
 			}
 			if testsPass && res != test.Expected {
-				fmt.Printf("Expected %d, got %d\n", test.Expected, res)
+				fmt.Printf("For test %d, expected %d, got %d\n", i + 1, test.Expected, res)
 				testsPass = false
 			}
 		}
